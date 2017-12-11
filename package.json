@@ -1,16 +1,18 @@
 {
   "name": "multi-template-loader",
   "version": "0.0.1-dev.0",
-  "description": "",
+  "description": "A webpack loader that renders templates using one of any number of templating engines",
+  "author": "James Abney",
+  "license": "MIT",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jabney/multi-template-loader.git"
+  },
   "scripts": {
     "webpack": "webpack --config ./dev/webpack.config.js",
     "start": "nodemon --exec 'npm run webpack' --watch index.js --watch dev",
     "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jabney/multi-template-loader.git"
   },
   "keywords": [
     "webpack",
@@ -18,8 +20,9 @@
     "template",
     "loader"
   ],
-  "author": "James Abney",
-  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
   "bugs": {
     "url": "https://github.com/jabney/multi-template-loader/issues"
   },
@@ -41,6 +44,8 @@
     "mustache": "^2.3.0",
     "nodemon": "^1.12.4",
     "pug": "^2.0.0-rc.4",
+    "twig": "^1.10.5",
+    "vash": "^0.12.3",
     "webpack": "^3.10.0"
   }
 }

@@ -1,0 +1,42 @@
+{
+  "name": "multi-template-loader",
+  "version": "0.0.1-dev.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "webpack": "webpack --config ./dev/webpack.config.js",
+    "start": "nodemon --exec 'npm run webpack' --watch index.js --watch dev ==watch dev/index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jabney/multi-template-loader.git"
+  },
+  "keywords": [
+    "webpack",
+    "multi",
+    "template",
+    "loader"
+  ],
+  "author": "James Abney",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jabney/multi-template-loader/issues"
+  },
+  "homepage": "https://github.com/jabney/multi-template-loader#readme",
+  "dependencies": {
+    "loader-utils": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^21.1.8",
+    "@types/node": "^8.0.57",
+    "babel-jest": "^21.2.0",
+    "babel-preset-env": "^1.6.1",
+    "ejs": "^2.5.7",
+    "jest": "^21.2.1",
+    "memory-fs": "^0.4.1",
+    "nodemon": "^1.12.4",
+    "pug": "^2.0.0-rc.4",
+    "webpack": "^3.10.0"
+  }
+}

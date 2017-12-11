@@ -1,7 +1,7 @@
 import compiler from './compiler.js'
 import helpers from './helpers'
 
-test('Renders an ejs template', async () => {
+test('Renders an Ejs template', async () => {
   const options = {
     engine: 'ejs',
     locals: {

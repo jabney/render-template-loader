@@ -4,7 +4,7 @@ var loaderUtils = require('loader-utils')
 
 var renderers = require('./lib/renderers')
 
-var NAME = 'Multi Template Loader'
+var NAME = 'Render Template Loader'
 
 /**
  * @typedef {Object} LoaderOptions

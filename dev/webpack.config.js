@@ -23,7 +23,7 @@ module.exports = {
             // filename: path.resolve(__dirname, 'index.ejs')
           },
           locals: {
-            title: 'Multi Template Loader'
+            title: 'Render Template Loader'
           }
         }
       }
@@ -38,7 +38,7 @@ module.exports = {
             filename: path.resolve(__dirname, 'index.pug')
           },
           locals: {
-            title: 'Multi Template Loader'
+            title: 'Render Template Loader'
           }
         }
       }
@@ -51,7 +51,7 @@ module.exports = {
           engine: 'mustache',
           engineOptions: {},
           locals: {
-            title: 'Multi Template Loader'
+            title: 'Render Template Loader'
           }
         }
       }
@@ -64,7 +64,7 @@ module.exports = {
           engine: 'handlebars',
           engineOptions: {},
           locals: {
-            title: 'Multi Template Loader'
+            title: 'Render Template Loader'
           }
         }
       }

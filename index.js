@@ -59,7 +59,7 @@ function getRenderer(eng) {
   if (typeof eng === 'function') {
     return {
       engine: null,
-      render: customRenderer(eng)
+      render: customRenderFn(eng)
     }
   }
 
@@ -87,7 +87,7 @@ function getRenderer(eng) {
  * @param {(s: string, l: any, o: any) => string} renderFn
  * @returns {(e: any, s: string, l: any, o: any) => string}
  */
-function customRenderer(renderFn) {
+function customRenderFn(renderFn) {
   return function (engine, str, locals, options) {
     return renderFn(str, locals, options)
   }

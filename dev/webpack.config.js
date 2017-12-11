@@ -1,4 +1,5 @@
 var ejs = require('ejs')
+var path = require('path')
 
 module.exports = {
   entry: './dev/index.js',
@@ -14,7 +15,13 @@ module.exports = {
           engine: function (str, locals, options) {
             return ejs.render(str, locals, options)
           },
-          engineOptions: {},
+          engineOptions: {
+            // root: path.resolve(__dirname)
+            views: [
+              path.resolve(__dirname, '.')
+            ]
+            // filename: path.resolve(__dirname, 'index.ejs')
+          },
           locals: {
             title: 'Multi Template Loader'
           }

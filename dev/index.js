@@ -1,1 +1,1 @@
-require('./index.html')
+require('./index.ejs')

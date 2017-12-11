@@ -1,7 +1,9 @@
 'use strict'
 
 var loaderUtils = require('loader-utils')
+
 var renderers = require('./lib/renderers')
+
 var NAME = 'Multi Template Loader'
 
 /**

@@ -1,13 +1,13 @@
 {
-  "name": "multi-template-loader",
-  "version": "0.0.1-dev.0",
+  "name": "render-template-loader",
+  "version": "0.0.1-dev.1",
   "description": "A webpack loader that renders templates using one of any number of templating engines",
   "author": "James Abney",
   "license": "MIT",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jabney/multi-template-loader.git"
+    "url": "git+https://github.com/jabney/render-template-loader.git"
   },
   "scripts": {
     "webpack": "webpack --config ./dev/webpack.config.js",
@@ -24,9 +24,9 @@
     "index.js"
   ],
   "bugs": {
-    "url": "https://github.com/jabney/multi-template-loader/issues"
+    "url": "https://github.com/jabney/render-template-loader/issues"
   },
-  "homepage": "https://github.com/jabney/multi-template-loader#readme",
+  "homepage": "https://github.com/jabney/render-template-loader#readme",
   "dependencies": {
     "loader-utils": "^1.1.0"
   },

@@ -51,6 +51,10 @@ function getOptions(context) {
  * @returns {EngineDefinition}
  */
 function getEngine(eng) {
+  if (!eng) {
+    throw new Error(
+      NAME + ': option "engine" must be a non-zero-length string or a function')
+  }
 
   if (typeof eng === 'function') {
     return {

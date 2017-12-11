@@ -37,6 +37,7 @@
     "babel-preset-env": "^1.6.1",
     "ejs": "^2.5.7",
     "handlebars": "^4.0.11",
+    "hjs": "0.0.6",
     "jade": "^1.11.0",
     "jest": "^21.2.1",
     "memory-fs": "^0.4.1",

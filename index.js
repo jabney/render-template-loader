@@ -1,11 +1,14 @@
 'use strict'
 
 var loaderUtils = require('loader-utils')
-
+var renderers = require('./lib/renderers')
 var NAME = 'Multi Template Loader'
 
 /**
  * @typedef {Object} LoaderOptions
+ * @property {string} engine
+ * @property {Object} [engineOptions]
+ * @property {Object} [locals]
  */
 
 /**
@@ -18,30 +21,82 @@ var NAME = 'Multi Template Loader'
  */
 function multiTemplateLoader(source) {
   var options = getOptions(this)
-
-  var result = source
-
+  var locals = options.locals || {}
+  var engineOptions = options.engineOptions || {}
+  var engine = getEngine(options.engine)
+  var result = render(engine, source, locals, engineOptions)
   return 'module.exports = ' + JSON.stringify(result)
 }
 
 /**
  * Return the options object.
  *
- * @param {LoaderContext} context
+ * @param {any} context
  * @returns {LoaderOptions}
  */
 function getOptions(context) {
+  // @ts-ignore
   return loaderUtils.getOptions(context)
 }
 
 /**
- * Return the type of an object as a string.
+ * @typedef {Object} EngineDefinition
+ * @property {any} engine
+ * @property {(e: any, s: string, l: any, o: any) => string} render
+ * Return a template engine
  *
- * @param {any} object
+ * @param {string|function} eng
+ * @returns {EngineDefinition}
+ */
+function getEngine(eng) {
+
+  if (typeof eng === 'function') {
+    return {
+      engine: null,
+      render: customRenderer(eng)
+    }
+  }
+
+  try {
+    var engine = require(eng)
+  } catch (e) {
+    throw new Error(NAME + ': unable to load engine "' + eng + '".'
+      + ' Make sure the engine is installed, e.g., "npm install ' + eng + '"')
+  }
+
+  if (!renderers[eng]) {
+    throw new Error(NAME + ': no renderer found for "' + eng + '".'
+      + ' You may need to create a custom engine definition')
+  }
+
+  return {
+    engine: engine,
+    render: renderers[eng]
+  }
+}
+
+function customRenderer(renderFn) {
+  return function (engine, str, locals, options) {
+    return renderFn(str, locals, options)
+  }
+}
+
+/**
+ * Render a string using a template engine
+ *
+ * @param {any} engine
+ * @param {string} str
+ * @param {Object} locals
  * @returns {string}
  */
-function typeOf(object) {
-  return Object.prototype.toString.call(object).slice(8, -1)
+function render(engine, str, locals, engineOptions) {
+  try {
+    var output = engine.render(engine.engine, str, locals, engineOptions)
+  } catch(e) {
+    throw new Error(
+      NAME + ': there was a problem rendering the template:\n' + e)
+  }
+  return output
 }
 
 module.exports = multiTemplateLoader

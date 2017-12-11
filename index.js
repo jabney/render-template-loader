@@ -25,8 +25,8 @@ function multiTemplateLoader(source) {
   var options = getOptions(this)
   var locals = options.locals || {}
   var engineOptions = options.engineOptions || {}
-  var engine = getEngine(options.engine)
-  var result = render(engine, source, locals, engineOptions)
+  var renderer = getRenderer(options.engine)
+  var result = render(renderer, source, locals, engineOptions)
   return 'module.exports = ' + JSON.stringify(result)
 }
 
@@ -42,15 +42,15 @@ function getOptions(context) {
 }
 
 /**
- * @typedef {Object} EngineDefinition
+ * @typedef {Object} Renderer
  * @property {any} engine
  * @property {(e: any, s: string, l: any, o: any) => string} render
  * Return a template engine
  *
  * @param {string|function} eng
- * @returns {EngineDefinition}
+ * @returns {Renderer}
  */
-function getEngine(eng) {
+function getRenderer(eng) {
   if (!eng) {
     throw new Error(
       NAME + ': option "engine" must be a non-zero-length string or a function')

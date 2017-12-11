@@ -21,7 +21,7 @@ var NAME = 'Render Template Loader'
  * @param {string} source
  * @returns {string}
  */
-function multiTemplateLoader(source) {
+function renderTemplateLoader(source) {
   var options = getOptions(this)
   var locals = options.locals || {}
   var engineOptions = options.engineOptions || {}
@@ -111,4 +111,4 @@ function render(engine, str, locals, engineOptions) {
   return output
 }
 
-module.exports = multiTemplateLoader
+module.exports = renderTemplateLoader

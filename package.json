@@ -33,8 +33,12 @@
     "babel-jest": "^21.2.0",
     "babel-preset-env": "^1.6.1",
     "ejs": "^2.5.7",
+    "handlebars": "^4.0.11",
+    "jade": "^1.11.0",
+    "jade-legacy": "^1.11.1",
     "jest": "^21.2.1",
     "memory-fs": "^0.4.1",
+    "mustache": "^2.3.0",
     "nodemon": "^1.12.4",
     "pug": "^2.0.0-rc.4",
     "webpack": "^3.10.0"

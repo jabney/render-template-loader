@@ -34,7 +34,9 @@ module.exports = {
         loader: './index.js',
         options: {
           engine: 'pug',
-          engineOptions: {},
+          engineOptions: {
+            filename: path.resolve(__dirname, 'index.pug')
+          },
           locals: {
             title: 'Multi Template Loader'
           }

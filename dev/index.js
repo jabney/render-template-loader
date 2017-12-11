@@ -1,1 +1,1 @@
-require('./index.ejs')
+require('./index.pug')

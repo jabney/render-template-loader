@@ -47,7 +47,7 @@ function getOptions(context) {
  * @property {(e: any, s: string, l: any, o: any) => string} render
  * Return a template engine
  *
- * @param {string|function} eng
+ * @param {string|((s: string, l: any, o: any) => string)} eng
  * @returns {Renderer}
  */
 function getRenderer(eng) {

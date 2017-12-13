@@ -1,6 +1,6 @@
 {
   "name": "render-template-loader",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A webpack loader that renders templates using one of any number of templating engines",
   "author": "James Abney",
   "license": "MIT",
@@ -21,7 +21,9 @@
     "loader"
   ],
   "files": [
-    "index.js"
+    "index.js",
+    "lib/merge.js",
+    "lib/renderers.js"
   ],
   "bugs": {
     "url": "https://github.com/jabney/render-template-loader/issues"

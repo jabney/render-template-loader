@@ -24,7 +24,8 @@ var NAME = 'Render Template Loader'
 function renderTemplateLoader(source) {
   var options = getOptions(this)
   var locals = options.locals || {}
-  var engineOptions = options.engineOptions || {}
+  var engineOptions = getEngineOptions(
+    options.engineOptions, this.resourcePath)
   var renderer = getRenderer(options.engine)
   var result = render(renderer, source, locals, engineOptions)
   return 'module.exports = ' + JSON.stringify(result)
@@ -39,6 +40,18 @@ function renderTemplateLoader(source) {
 function getOptions(context) {
   // @ts-ignore
   return loaderUtils.getOptions(context)
+}
+
+/**
+ *
+ * @param {Object|((info: any) => Object)} engineOptions
+ * @param {*} resourcePath
+ */
+function getEngineOptions(engineOptions, resourcePath) {
+  if (typeof engineOptions === 'function') {
+    return engineOptions({filename: resourcePath})
+  }
+  return engineOptions || {}
 }
 
 /**

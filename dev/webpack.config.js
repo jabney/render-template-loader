@@ -12,18 +12,18 @@ module.exports = {
       use: {
         loader: './index.js',
         options: {
-          engine: function (str, locals, options) {
-            return ejs.render(str, locals, options)
-          },
-          engineOptions: {
-            // root: path.resolve(__dirname)
-            views: [
-              path.resolve(__dirname, '.')
-            ]
-            // filename: path.resolve(__dirname, 'index.ejs')
+          // engine: function (str, locals, options) {
+          //   return ejs.render(str, locals, options)
+          // },
+          engine: 'ejs',
+          // engineOptions: {
+          //   views: [ path.resolve(__dirname, '.') ]
+          // },
+          engineOptions: function (info) {
+            return { filename: info.filename }
           },
           locals: {
-            title: 'Render Template Loader'
+            title: 'Render Template Loader (ejs)'
           }
         }
       }
@@ -34,11 +34,14 @@ module.exports = {
         loader: './index.js',
         options: {
           engine: 'pug',
-          engineOptions: {
-            filename: path.resolve(__dirname, 'index.pug')
+          // engineOptions: {
+          //   filename: path.resolve(__dirname, 'index.pug')
+          // },
+          engineOptions: function (info) {
+            return { filename: info.filename }
           },
           locals: {
-            title: 'Render Template Loader'
+            title: 'Render Template Loader (pug)'
           }
         }
       }
@@ -51,7 +54,7 @@ module.exports = {
           engine: 'mustache',
           engineOptions: {},
           locals: {
-            title: 'Render Template Loader'
+            title: 'Render Template Loader (mustache)'
           }
         }
       }
@@ -64,7 +67,7 @@ module.exports = {
           engine: 'handlebars',
           engineOptions: {},
           locals: {
-            title: 'Render Template Loader'
+            title: 'Render Template Loader (handlebars)'
           }
         }
       }

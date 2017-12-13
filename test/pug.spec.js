@@ -26,9 +26,12 @@ test('Renders a Pug template with partial', async () => {
       title: 'Pug Template',
       desc: 'A template rendered by Pug'
     },
-    engineOptions: {
-      filename: path.resolve(__dirname, 'source-partial.pug')
-    }
+    engineOptions: function (info) {
+      return { filename: info.filename }
+    },
+    // engineOptions: {
+    //   filename: path.resolve(__dirname, 'data/source-partial.pug')
+    // }
   }
 
   const stats = await compiler('data/source-partial.pug', options)

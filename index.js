@@ -45,7 +45,7 @@ function getOptions(context) {
 /**
  *
  * @param {Object|((info: any) => Object)} engineOptions
- * @param {*} resourcePath
+ * @param {string} resourcePath
  */
 function getEngineOptions(engineOptions, resourcePath) {
   if (typeof engineOptions === 'function') {

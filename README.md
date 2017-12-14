@@ -1,4 +1,4 @@
-Render templates using one of any number of templating engines.
+Render templates with Webpack using one of any number of templating engines.
 
 Under development. See [unit tests](https://github.com/jabney/render-template-loader/tree/master/test) and [webpack.config.js](https://github.com/jabney/render-template-loader/blob/master/dev/webpack.config.js) for usage examples.
 

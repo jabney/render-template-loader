@@ -11,6 +11,10 @@ var NAME = 'Render Template Loader'
  * @property {string} engine
  * @property {Object} [engineOptions]
  * @property {Object} [locals]
+ * @property {(engine: any, info: Info) => void} [init]
+ *
+ * @typedef {Object} Info
+ * @property {string} filename
  */
 
 /**
@@ -24,11 +28,25 @@ var NAME = 'Render Template Loader'
 function renderTemplateLoader(source) {
   var options = getOptions(this)
   var locals = options.locals || {}
-  var engineOptions = getEngineOptions(
-    options.engineOptions, this.resourcePath)
+  var info = { filename: this.resourcePath }
+  var engineOptions = getEngineOptions(options.engineOptions, info)
   var renderer = getRenderer(options.engine)
+
+  init(renderer.engine, info, options)
+
   var result = render(renderer, source, locals, engineOptions)
   return 'module.exports = ' + JSON.stringify(result)
+}
+
+/**
+ * @param {any} engine
+ * @param {Info} info
+ * @param {LoaderOptions} options
+ */
+function init(engine, info, options) {
+  if (typeof options.init === 'function') {
+    options.init(engine, info)
+  }
 }
 
 /**
@@ -45,11 +63,11 @@ function getOptions(context) {
 /**
  *
  * @param {Object|((info: any) => Object)} engineOptions
- * @param {string} resourcePath
+ * @param {any} info
  */
-function getEngineOptions(engineOptions, resourcePath) {
+function getEngineOptions(engineOptions, info) {
   if (typeof engineOptions === 'function') {
-    return engineOptions({filename: resourcePath})
+    return engineOptions(info)
   }
   return engineOptions || {}
 }

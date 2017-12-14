@@ -58,7 +58,6 @@ function getEngineOptions(engineOptions, resourcePath) {
  * @typedef {Object} Renderer
  * @property {any} engine
  * @property {(e: any, s: string, l: any, o: any) => string} render
- * Return a template engine
  *
  * @param {string|((s: string, l: any, o: any) => string)} eng
  * @returns {Renderer}

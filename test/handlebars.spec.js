@@ -21,13 +21,13 @@ test('Renders a Handlebars template', async () => {
 test('Renders a Handlebars template with partial (init)', async () => {
   const options = {
     engine: 'handlebars',
-    init: function (engine, info) {
-      engine.registerPartial('description', '<h2>{{ desc }}</h2>')
-    },
     locals: {
       title: 'Handlebars Template',
       desc: 'A template rendered by Handlebars'
-    }
+    },
+    init: function (engine, info) {
+      engine.registerPartial('description', '<h2>{{ desc }}</h2>')
+    },
   }
 
   const stats = await compiler('data/source-partial.hbs', options)

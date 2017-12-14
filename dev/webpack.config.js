@@ -65,6 +65,9 @@ module.exports = {
         loader: './index.js',
         options: {
           engine: 'handlebars',
+          init: function (engine, info) {
+            engine.registerPartial('thePartial', '{{title}}')
+          },
           engineOptions: {},
           locals: {
             title: 'Render Template Loader (handlebars)'

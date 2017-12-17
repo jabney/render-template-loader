@@ -15,11 +15,13 @@ Custom engine support included; see [loader.spec.js](https://github.com/jabney/r
 ## Installation
 
 ### Install `render-template-loader`
+
 ```bash
 > npm install render-template-loader
 ```
 
 ### Install a template engine or two
+
 ```bash
 > npm install ejs pug
 ```
@@ -70,7 +72,7 @@ module.exports = {
             desc: 'Rendering templates with a Webpack loader since 2017'
           },
           engineOptions: function (info) {
-            // Ejs wants a filename for partials rendering.
+            // Ejs wants the template filename for partials rendering.
             // (Configuring a "views" option can also be done.)
             return { filename: info.filename }
           }
@@ -171,7 +173,7 @@ module.exports = {
 
 ## Loader Options
 
-`engine (string|function)`: (required) the name of the template engine as installed, e.g., `ejs`, or a custom engine function that returns the rendered template.
+`engine (string|function)`: **(required)** the name of the template engine as installed, e.g., `ejs`, or a custom engine function that returns the rendered template.
 
 ```javascript
 engine: 'ejs',
@@ -203,9 +205,23 @@ locals: {
 }
 ```
 
-`engineOptions (object|function)`: (optional) an options object passed to the template engine when it's loaded. The content of this object is determined by each engine's configuration. For most simple rendering (without partials) `engineOptions` isn't required.
+`engineOptions (object|function)`: **(optional)** an options object passed to the template engine when it's loaded. The content of this object is determined by each engine's configuration. For simple template rendering (without partials) `engineOptions` isn't usually required.
 
-`locals (object)`: (optional) an object containing variables used by the template. A local variable `title` will be used by a template, e.g., `<%= title %>`.
+```javascript
+engineOptions: {
+  views: ['./src/views']
+}
+```
+
+```javascript
+engineOptions: function (info) {
+  // The info object contains the filename of the
+  // template being rendered.
+  return { filename: info.filename }
+}
+```
+
+`locals (object)`: **(optional)** an object containing variables used by the template. A local variable `title` will be used by a template, e.g., `<%= title %>`.
 
 ```javascript
 locals: {
@@ -219,7 +235,7 @@ locals: {
 <h2><%= desc %></h2>
 ````
 
-`init (function)`: (optional) a function called before the template is rendered. This is useful for engines that might require setup code to run before use. For instance, `handlebars` partials can be configured by calling `handlebars.registerPartial`.
+`init (function)`: **(optional)** a function called before the template is rendered. This is useful for engines that might require setup code to run before use. For instance, `handlebars` partials can be configured by calling `handlebars.registerPartial`.
 
 ```javascript
 engine: 'handlebars',

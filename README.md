@@ -1,4 +1,5 @@
 # Render Template Loader
+[![Build Status](https://travis-ci.org/jabney/render-template-loader.svg?branch=master)](https://travis-ci.org/jabney/render-template-loader)
 
 Render templates with Webpack using one of any number of templating engines.
 

@@ -62,7 +62,7 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /\.ejs$/,
+      test: /\/src\/index.ejs$/,
       use: [{
         loader: 'render-template-loader',
         options: {

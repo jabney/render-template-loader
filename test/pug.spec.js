@@ -34,7 +34,7 @@ test('Renders a Pug template with partial', async () => {
     // }
   }
 
-  const stats = await compiler('data/source-partial.pug', options)
+  const stats = await compiler('data/source-with-partial.pug', options)
   const output = stats.toJson().modules[0].source
   const source = helpers.value(output)
 

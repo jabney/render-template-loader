@@ -30,7 +30,7 @@ test('Renders a Jade template with partial', async () => {
     }
   }
 
-  const stats = await compiler('data/source-partial.jade', options)
+  const stats = await compiler('data/source-with-partial.jade', options)
   const output = stats.toJson().modules[0].source
   const source = helpers.value(output)
 

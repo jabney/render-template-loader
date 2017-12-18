@@ -32,7 +32,7 @@ test('Renders an Ejs template with partial (views)', async () => {
     }
   }
 
-  const stats = await compiler('data/source-partial.ejs', options)
+  const stats = await compiler('data/source-with-partial.ejs', options)
   const output = stats.toJson().modules[0].source
   const source = helpers.value(output)
 
@@ -52,7 +52,7 @@ test('Renders an Ejs template with partial (filename)', async () => {
     }
   }
 
-  const stats = await compiler('data/source-partial.ejs', options)
+  const stats = await compiler('data/source-with-partial.ejs', options)
   const output = stats.toJson().modules[0].source
   const source = helpers.value(output)
 

@@ -30,7 +30,7 @@ test('Renders a Handlebars template with partial (init)', async () => {
     },
   }
 
-  const stats = await compiler('data/source-partial.hbs', options)
+  const stats = await compiler('data/source-with-partial.hbs', options)
   const output = stats.toJson().modules[0].source
   const source = helpers.value(output)
 

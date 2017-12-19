@@ -115,11 +115,11 @@ function getRenderer(eng) {
  * Create a custom renderer from a custom render function.
  *
  * @param {(s: string, l: any, o: any) => string} renderFn
- * @returns {(e: any, s: string, l: any, o: any) => string}
+ * @returns {(e: any, t: string, l: any, o: any) => string}
  */
 function customRenderFn(renderFn) {
-  return function (engine, str, locals, options) {
-    return renderFn(str, locals, options)
+  return function (engine, template, locals, options) {
+    return renderFn(template, locals, options)
   }
 }
 

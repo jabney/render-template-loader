@@ -174,6 +174,19 @@ module.exports = {
 
 ## Loader Options
 
+```javascript
+options: {
+  // The name of the engine as installed by npm (required).
+  engine: 'engine name' | function (template, locals, options) {),
+  // Template variables (optional).
+  locals: {},
+  // Options specific to the engine (optional).
+  engingeOptions: {} | function (info) {}
+  // Called before the template is rendered (optional).
+  init: function (engine, info, options) {}
+}
+```
+
 `engine (string|function)`: **(required)** the name of the template engine as installed, e.g., `ejs`, or a custom engine function that returns the rendered template.
 
 ```javascript
@@ -206,6 +219,20 @@ locals: {
 }
 ```
 
+`locals (object)`: **(optional)** an object containing variables used by the template. A local variable `title` will be used by a template, e.g., `<%= title %>`.
+
+```javascript
+locals: {
+  title: 'Ejs Template',
+  desc: 'A template rendered by ejs'
+}
+```
+
+```html
+<h1><%= title %></h1>
+<h2><%= desc %></h2>
+```
+
 `engineOptions (object|function)`: **(optional)** an options object passed to the template engine when it's loaded. The content of this object is determined by each engine's configuration. For simple template rendering (without partials) `engineOptions` isn't usually required.
 
 ```javascript
@@ -221,20 +248,6 @@ engineOptions: function (info) {
   return { filename: info.filename }
 }
 ```
-
-`locals (object)`: **(optional)** an object containing variables used by the template. A local variable `title` will be used by a template, e.g., `<%= title %>`.
-
-```javascript
-locals: {
-  title: 'Ejs Template',
-  desc: 'A template rendered by ejs'
-}
-```
-
-```html
-<h1><%= title %></h1>
-<h2><%= desc %></h2>
-````
 
 `init (function)`: **(optional)** a function called before the template is rendered. This is useful for engines that might require setup code to run before use. For instance, `handlebars` partials can be configured by calling `handlebars.registerPartial`.
 

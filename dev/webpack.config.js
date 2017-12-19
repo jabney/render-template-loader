@@ -12,8 +12,8 @@ module.exports = {
       use: {
         loader: './index.js',
         options: {
-          // engine: function (str, locals, options) {
-          //   return ejs.render(str, locals, options)
+          // engine: function (template, locals, options) {
+          //   return ejs.render(template, locals, options)
           // },
           engine: 'ejs',
           // engineOptions: {

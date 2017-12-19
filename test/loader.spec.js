@@ -4,8 +4,8 @@ import ejs from 'ejs'
 
 test('Renders a custom template (regex)', async () => {
   const options = {
-    engine: function (str, locals) {
-      return str.replace(/#\{(.+?)\}/g, function (match, p1) {
+    engine: function (template, locals) {
+      return template.replace(/#\{(.+?)\}/g, function (match, p1) {
         return locals[p1]
       })
     },
@@ -25,8 +25,8 @@ test('Renders a custom template (regex)', async () => {
 
 test('Renders a custom template (ejs)', async () => {
   const options = {
-    engine: function (str, locals, options) {
-      return ejs.render(str, locals, options)
+    engine: function (template, locals, options) {
+      return ejs.render(template, locals, options)
     },
     locals: {
       title: 'Custom Template',

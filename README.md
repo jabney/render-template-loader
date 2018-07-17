@@ -9,7 +9,7 @@ See [unit tests](https://github.com/jabney/render-template-loader/tree/master/te
 
 Built-in support for and tested with: `ejs`, `handlebars`, `jade`, `mustache`, `pug`, `twig`, and `vash`.
 
-Partials support tested with `ejs`, `handlebars`, `jade`, and `pug`.
+Partials support tested with `ejs`, `handlebars`, `jade`, `twig`, and `pug`.
 
 Custom engine support included; see [loader.spec.js](https://github.com/jabney/render-template-loader/blob/master/test/loader.spec.js).
 

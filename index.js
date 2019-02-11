@@ -24,7 +24,7 @@ var NAME = 'Render Template Loader'
  * @param {LoaderOptions} options
  */
 function getLocals(options) {
-  const locals = options.locals
+  var locals = options.locals
 
   if (typeof locals === 'function') {
     return locals() || {}

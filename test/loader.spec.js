@@ -41,3 +41,25 @@ test('Renders a custom template (ejs)', async () => {
   expect(source).toContain('<h1>Custom Template</h1>')
   expect(source).toContain('<h2>A template rendered by a custom function</h2>')
 })
+
+test('Allows options.locals to be a function', async () => {
+  const options = {
+    engine: function (template, locals, options) {
+      return ejs.render(template, locals, options)
+    },
+    locals: function () {
+      return {
+        title: 'Locals as a Function',
+        desc: 'The locals option can be an object or function'
+      }
+    }
+
+  }
+
+  const stats = await compiler('data/source.ejs', options)
+  const output = stats.toJson().modules[0].source
+  const source = helpers.value(output)
+
+  expect(source).toContain('<h1>Locals as a Function</h1>')
+  expect(source).toContain('<h2>The locals option can be an object or function</h2>')
+})

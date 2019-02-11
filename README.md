@@ -179,7 +179,7 @@ options: {
   // The name of the engine as installed by npm (required).
   engine: 'engine name' | function (template, locals, options) {),
   // Template variables (optional).
-  locals: {},
+  locals: {...} | function () { return {...} },
   // Options specific to the engine (optional).
   engingeOptions: {} | function (info) {}
   // Called before the template is rendered (optional).
@@ -226,6 +226,17 @@ locals: {
   title: 'Ejs Template',
   desc: 'A template rendered by ejs'
 }
+```
+
+`locals` can also be a function that returns a locals object:
+
+```javascript
+  locals: function () {
+    return {
+      title: 'Ejs Template',
+      desc: 'A template rendered by ejs'
+    }
+  }
 ```
 
 ```html

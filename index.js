@@ -34,9 +34,9 @@ function getLocals(options) {
 }
 
 /**
- * The Regex Replace Loader.
+ * The Render Template Loader
  *
- * Replace values from the source via a regular expression.
+ * Render via supported template engines or a custom template renderer.
  *
  * @this {webpack.loader.LoaderContext}
  * @param {string} source

@@ -1,7 +1,8 @@
 import compiler from './compiler.js'
 import helpers from './helpers'
 
-test('Renders a Jade template', async () => {
+// Disabled (jade is deprecated and has a vulnerability).
+xtest('Renders a Jade template', async () => {
   const options = {
     engine: 'jade',
     locals: {
@@ -18,7 +19,8 @@ test('Renders a Jade template', async () => {
   expect(source).toContain('<h2>A template rendered by Jade</h2>')
 })
 
-test('Renders a Jade template with partial', async () => {
+// Disabled (jade is deprecated and has a vulnerability).
+xtest('Renders a Jade template with partial', async () => {
   const options = {
     engine: 'jade',
     locals: {

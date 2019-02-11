@@ -1,5 +1,7 @@
 'use strict'
 
+var webpack = require('webpack')
+
 var loaderUtils = require('loader-utils')
 
 var renderers = require('./lib/renderers')
@@ -18,16 +20,31 @@ var NAME = 'Render Template Loader'
  */
 
 /**
+ * Return the
+ * @param {LoaderOptions} options
+ */
+function getLocals(options) {
+  const locals = options.locals
+
+  if (typeof locals === 'function') {
+    return locals() || {}
+  }
+
+  return locals || {}
+}
+
+/**
  * The Regex Replace Loader.
  *
  * Replace values from the source via a regular expression.
  *
+ * @this {webpack.loader.LoaderContext}
  * @param {string} source
  * @returns {string}
  */
 function renderTemplateLoader(source) {
   var options = getOptions(this)
-  var locals = options.locals || {}
+  var locals = getLocals(options)
   var info = { filename: this.resourcePath }
   var engineOptions = getEngineOptions(options.engineOptions, info)
   var renderer = getRenderer(options.engine)

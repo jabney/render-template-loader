@@ -1,9 +1,7 @@
 'use strict'
 
 var webpack = require('webpack')
-
 var loaderUtils = require('loader-utils')
-
 var renderers = require('./lib/renderers')
 
 var NAME = 'Render Template Loader'
@@ -20,14 +18,16 @@ var NAME = 'Render Template Loader'
  */
 
 /**
- * Return the
+ * Return the locals object.
+ *
+ * @this {webpack.loader.LoaderContext}
  * @param {LoaderOptions} options
  */
 function getLocals(options) {
   var locals = options.locals
 
   if (typeof locals === 'function') {
-    return locals() || {}
+    return locals.call(this) || {}
   }
 
   return locals || {}
@@ -43,26 +43,33 @@ function getLocals(options) {
  * @returns {string}
  */
 function renderTemplateLoader(source) {
+  // Get the loader options object.
   var options = getOptions(this)
-  var locals = getLocals(options)
+  // Get the template locals.
+  var locals = getLocals.call(this, options)
+  // Create info object of the filename of the resource being loaded.
   var info = { filename: this.resourcePath }
-  var engineOptions = getEngineOptions(options.engineOptions, info)
-  var renderer = getRenderer(options.engine)
-
-  init(renderer.engine, info, options)
-
+  // Get the engine options to be passed to the engine.
+  var engineOptions = getEngineOptions.call(this, options.engineOptions, info)
+  // Get the template renderer
+  var renderer = getRenderer.call(this, options.engine)
+  // Call options.init.
+  init.call(this, renderer.engine, info, options)
+  // Render the template
   var result = render(renderer, source, locals, engineOptions)
+  // Assign the tempate to module.exports.
   return 'module.exports = ' + JSON.stringify(result)
 }
 
 /**
+ * @this {webpack.loader.LoaderContext}
  * @param {any} engine
  * @param {Info} info
  * @param {LoaderOptions} options
  */
 function init(engine, info, options) {
   if (typeof options.init === 'function') {
-    options.init(engine, info)
+    options.init.call(this, engine, info)
   }
 }
 
@@ -79,12 +86,13 @@ function getOptions(context) {
 
 /**
  *
+ * @this {webpack.loader.LoaderContext}
  * @param {Object|((info: any) => Object)} engineOptions
  * @param {any} info
  */
 function getEngineOptions(engineOptions, info) {
   if (typeof engineOptions === 'function') {
-    return engineOptions(info)
+    return engineOptions.call(this, info)
   }
   return engineOptions || {}
 }
@@ -94,6 +102,7 @@ function getEngineOptions(engineOptions, info) {
  * @property {any} engine
  * @property {(e: any, s: string, l: any, o: any) => string} render
  *
+ * @this {webpack.loader.LoaderContext}
  * @param {string|((s: string, l: any, o: any) => string)} eng
  * @returns {Renderer}
  */
@@ -106,7 +115,7 @@ function getRenderer(eng) {
   if (typeof eng === 'function') {
     return {
       engine: null,
-      render: customRenderFn(eng)
+      render: customRenderFn.call(this, eng)
     }
   }
 
@@ -131,12 +140,16 @@ function getRenderer(eng) {
 /**
  * Create a custom renderer from a custom render function.
  *
+ * @this {webpack.loader.LoaderContext}
  * @param {(s: string, l: any, o: any) => string} renderFn
  * @returns {(e: any, t: string, l: any, o: any) => string}
  */
 function customRenderFn(renderFn) {
+  // The loader context.
+  var _this = this
+
   return function (engine, template, locals, options) {
-    return renderFn(template, locals, options)
+    return renderFn.call(_this, template, locals, options)
   }
 }
 

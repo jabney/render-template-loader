@@ -1,0 +1,4 @@
+{
+  "title": "Locals as a Function with addDependency",
+  "desc": "The locals function can use the loader context"
+}

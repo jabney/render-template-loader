@@ -77,7 +77,6 @@ test('options.locals can access the loader context', async () => {
       const buffer = fs.readFileSync(file)
       return JSON.parse(buffer.toString())
     }
-
   }
 
   const stats = await compiler('data/source.ejs', options)

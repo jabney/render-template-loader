@@ -1,6 +1,6 @@
 {
   "name": "render-template-loader",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "A webpack loader that renders templates using one of any number of templating engines",
   "author": "James Abney",
   "license": "MIT",

@@ -272,3 +272,43 @@ init: function (engine, info) {
   engine.registerPartial('description', '<h2>{{ desc }}</h2>')
 }
 ```
+
+### The Loader Context
+
+Options which can be functions have their `this` context set to the loader context. This allows for advanced usage, such as adding webpack dependencies on the fly. See the webpack documentation on the [LoaderContext](https://webpack.js.org/api/loaders/#the-loader-context) for its api methods.
+
+#### Example
+
+**json data**
+
+```json
+{
+  "title": "Locals as a Function with addDependency",
+  "desc": "The locals function can use the loader context"
+}
+```
+
+**loader configuration**
+
+```javascript
+{
+  loader: 'render-template-loader',
+  options: {
+    engine: 'ejs',
+    engineOptions: function (info) {
+      // Ejs wants the template filename for partials rendering.
+      // (Configuring a "views" option can also be done.)
+      return { filename: info.filename }
+    },
+    locals: function () {
+      const file = path.join(__dirname, './data/locals.json')
+      // Access the loader context's addDependency method to
+      // add a data file dependency.
+      this.addDependency(file)
+      const buffer = fs.readFileSync(file)
+      // Return the loaded json as the locals.
+      return JSON.parse(buffer.toString())
+    }
+  }
+}
+```

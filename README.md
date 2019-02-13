@@ -139,6 +139,13 @@ module.exports = {
         loader: 'file-loader?name=[name].html'
       },
       {
+        /**
+         * We use extract-loader in this configuration because
+         * file-loader above expects a string. In other configs,
+         * we use HtmlWebpackLoader which handles the module
+         * output of render-template-loader, so extract-loader
+         * is not required.
+         */
         loader: 'extract-loader'
       },
       {
@@ -310,5 +317,118 @@ Options which can be functions have their `this` context set to the loader conte
       return JSON.parse(buffer.toString())
     }
   }
+}
+```
+
+## FAQ
+
+> Why do some configurations use `extract-loader` and others do not?
+
+`render-template-loader` exports the rendered template as a `commonjs` javascript module:
+
+```javascript
+module.exports = "<h1>Pug Template</h1><h2>A template rendered by Pug</h2>"
+```
+
+In many cases, such as when using `HtmlWebpackPlugin`, this is exactly what you want, because module code is expected. In other cases, such as when using `file-loader` or `html-loader` or some other loader that expects plain text, `extract-loader` manages extracting the stirng from the module's output:
+
+```
+<h1>Pug Template</h1><h2>A template rendered by Pug</h2>
+```
+
+**with extract-loader**
+
+```javascript
+/**
+ * Use extract-loader because we're using file loader instead of
+ * HtmlWebpackPlugin.
+ */
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  module: {
+    rules: [{
+      test: /\.pug$/,
+      use: [{
+        loader: 'file-loader?name=[name].html'
+      },
+      {
+        /**
+         * We use extract-loader in this configuration because
+         * file-loader above expects a string. In other configs,
+         * we use HtmlWebpackLoader which handles the module
+         * output of render-template-loader, so extract-loader
+         * is not required.
+         */
+        loader: 'extract-loader'
+      },
+      {
+        loader: 'render-template-loader',
+        options: {
+          engine: 'pug',
+          locals: {
+            title: 'Rendered with Pug!',
+            desc: 'Partials Support'
+          },
+          engineOptions: function (info) {
+            return { filename: info.filename }
+          }
+        }
+      }]
+    }]
+  },
+  plugins: []
+}
+```
+
+**without extract loader**
+
+```javascript
+/**
+ * No need for extract-loader here because HtmlWebpackPlugin is
+ * handling the index.ejs file.
+ *
+ */
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  module: {
+    rules: [{
+      test: /\/src\/index.ejs$/,
+      use: [{
+        loader: 'render-template-loader',
+        options: {
+          engine: 'ejs',
+          locals: {
+            title: 'Render Template Loader',
+            desc: 'Rendering templates with a Webpack loader since 2017'
+          },
+          engineOptions: function (info) {
+            // Ejs wants the template filename for partials rendering.
+            // (Configuring a "views" option can also be done.)
+            return { filename: info.filename }
+          }
+        }
+      }]
+    }]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      // Tell HtmlWebpackPlugin about our index.ejs template.
+      template: 'src/index.ejs'
+    })
+  ]
 }
 ```

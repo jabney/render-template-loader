@@ -24,7 +24,7 @@ var NAME = 'Render Template Loader'
  * @param {LoaderOptions} options
  */
 function getLocals(options) {
-  var locals = options.locals
+  const locals = options.locals
 
   if (typeof locals === 'function') {
     return locals.call(this) || {}
@@ -44,19 +44,20 @@ function getLocals(options) {
  */
 function renderTemplateLoader(source) {
   // Get the loader options object.
-  var options = getOptions(this)
+  const options = getOptions(this)
   // Get the template locals.
-  var locals = getLocals.call(this, options)
+  const locals = getLocals.call(this, options)
   // Create info object of the filename of the resource being loaded.
-  var info = { filename: this.resourcePath }
+  const info = { filename: this.resourcePath }
   // Get the engine options to be passed to the engine.
-  var engineOptions = getEngineOptions.call(this, options.engineOptions, info)
+  const engineOptions = getEngineOptions.call(this, options.engineOptions, info)
   // Get the template renderer
-  var renderer = getRenderer.call(this, options.engine)
+  const renderer = getRenderer.call(this, options.engine)
+
   // Call options.init.
   init.call(this, renderer.engine, info, options)
   // Render the template
-  var result = render(renderer, source, locals, engineOptions)
+  const result = render.call(this, renderer, source, locals, engineOptions)
   // Assign the tempate to module.exports.
   return 'module.exports = ' + JSON.stringify(result)
 }
@@ -107,6 +108,8 @@ function getEngineOptions(engineOptions, info) {
  * @returns {Renderer}
  */
 function getRenderer(eng) {
+  let engine = null;
+
   if (!eng) {
     throw new Error(
       NAME + ': option "engine" must be a non-zero-length string or a function')
@@ -114,13 +117,13 @@ function getRenderer(eng) {
 
   if (typeof eng === 'function') {
     return {
-      engine: null,
+      engine: engine,
       render: customRenderFn.call(this, eng)
     }
   }
 
   try {
-    var engine = require(eng)
+    engine = require(eng)
   } catch (e) {
     throw new Error(NAME + ': unable to load engine "' + eng + '".'
       + ' Make sure the engine is installed, e.g., "npm install ' + eng + '"')
@@ -146,7 +149,7 @@ function getRenderer(eng) {
  */
 function customRenderFn(renderFn) {
   // The loader context.
-  var _this = this
+  const _this = this
 
   return function (engine, template, locals, options) {
     return renderFn.call(_this, template, locals, options)
@@ -156,14 +159,16 @@ function customRenderFn(renderFn) {
 /**
  * Render a string using a template engine
  *
+ * @this {webpack.loader.LoaderContext}
  * @param {any} engine
  * @param {string} str
  * @param {Object} locals
  * @returns {string}
  */
 function render(engine, str, locals, engineOptions) {
+  let output = null;
   try {
-    var output = engine.render(engine.engine, str, locals, engineOptions)
+    output = engine.render.call(this, engine.engine, str, locals, engineOptions)
   } catch(e) {
     throw new Error(
       NAME + ': there was a problem rendering the template:\n' + e)

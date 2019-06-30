@@ -195,6 +195,7 @@ options: {
 ```
 
 `engine (string|function)`: **(required)** the name of the template engine as installed, e.g., `ejs`, or a custom engine function that returns the rendered template.
+It can’t be a arrow function because we use `.call()` to have webpack context as `this`.
 
 ```javascript
 engine: 'ejs',

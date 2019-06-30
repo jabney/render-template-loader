@@ -56,7 +56,7 @@ function renderTemplateLoader(source) {
 
   // Call options.init.
   init.call(this, renderer.engine, info, options)
-  // Render the template
+  // Render the template (webpack context as `this`)
   const result = render.call(this, renderer, source, locals, engineOptions)
   // Assign the tempate to module.exports.
   return 'module.exports = ' + JSON.stringify(result)
